@@ -1,0 +1,183 @@
+FORMAT: 1A
+HOST: http://localhost:1337
+
+# triquiREST
+
+TiquiREST is a simple api to play the clasic game "triqui" online.
+
+# Group Players
+
+## Connected Players Collection [/player]
+
+### List All connected players [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "name":"juan",
+                "status":"waiting"
+            }, 
+            {
+                "name":"pedro1",
+                "status":"playing"
+            }
+        ]
+
+### Join player to lobby [POST]
+
+
++ Request (application/json)
+
+        {
+            "name": "jhon"
+        }
+
++ Response 201 (application/json)
+  
+
+## Connected Players notifications Collection [/player/{name}/notification]  
+
+Pending notification of a given player.
+
+ + Parameters
+    + name (required, text, `jhon`) ... `name` of the player.
+ 
+
+### Get player's pending notifications  [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "type":"gameinvite",
+                "sender":"Juan"
+            },
+            {
+                "id": 2,
+                "type":"gameinvite",
+                "sender":"Pedro"
+            }
+        ]
+
+### Send notification to player [POST]
+
+
++ Request (application/json)
+
+        {
+            "type":"gameinvite",
+            "sender":"Juan"
+        }
+
++ Response 201 (application/json) 
+
+        {
+            "id": 1,
+            "type":"gameinvite",
+            "sender":"Juan"
+        }
+
+## Connected Players notification [/player/{name}/notification/{id}]
+
++ Parameters
+    + name (required, text, `jhon`) ... `name` of the player.
+    + id (required, number, `1`) ... `id` of the notification.
+
+### Delete player's notification  [DELETE]
+
+
++ Response 204 (application/json)
+
+# Group Game
+
+## Active Games collection [/game]
+
+### List all active games [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "player1":"juan",
+                "player2":"pedro1"
+            }
+        ]
+
+### Create new game [POST]
+
++ Request (application/json)
+
+        {
+            "player1":"juan",
+            "player2":"pedro1"
+        }
+
++ Response 201 (application/json) 
+
+        {
+            "id": 1,
+            "player1":"juan",
+            "player2":"pedro1",
+            "board":[
+                ["-","-","-"],
+                ["-","-","-"],
+                ["-","-","-"]
+            ],
+            "playerTurn":"juan"
+        }
+
+## Active game [/game/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... `id` of the game.
+
+### Get detailled game [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "player1":"juan",
+            "player2":"pedro1",
+            "board":[
+                ["-","-","-"],
+                ["-","-","-"],
+                ["-","-","-"]
+            ],
+            "playerTurn":"juan"
+        }
+
+### Update Game [POST]
+
++ Request (application/json)
+
+        {
+            "id":1,
+            "board":[
+                ["x","-","-"],
+                ["-","-","-"],
+                ["-","-","-"]
+            ],
+            "playerTurn":"pedro1"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "player1":"juan",
+            "player2":"pedro1",
+            "board":[
+                ["x","-","-"],
+                ["-","-","-"],
+                ["-","-","-"]
+            ],
+            "playerTurn":"juan"
+        }
+
+### Delete Game [DELETE]
+
++ Response 204 (application/json)
