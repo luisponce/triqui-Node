@@ -12,13 +12,17 @@ import java.util.ArrayList;
  * @author jonathaneidelman
  */
 public class Player {
+    public enum Status {
+        WAITING, PLAYING, AWAY
+    }
+    
     private final int id;
     private final String name;
-    private String status;
+    private Status status;
     
     private ArrayList<Notification> notifications;
 
-    public Player(int id, String name, String status,
+    public Player(int id, String name, Status status,
             ArrayList<Notification> notifications) {
         
         this.id = id;
@@ -38,11 +42,11 @@ public class Player {
         return name;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -5,17 +5,25 @@
  */
 package triquiclient;
 
+import domain.Player;
+
 /**
  *
  * @author jonathaneidelman
  */
-public class lobby extends javax.swing.JFrame {
+public class Lobby extends javax.swing.JFrame {
 
+    private Player player;
+    
     /**
      * Creates new form lobby
      */
-    public lobby() {
+    public Lobby(Player p) {
+        this.player = p;
+        
         initComponents();
+        
+        lblPlayerName.setText(p.getName());
     }
 
     /**
@@ -29,14 +37,26 @@ public class lobby extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtLobby = new javax.swing.JLabel();
+        lblPlayerName = new javax.swing.JLabel();
         pnlPlayerList = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Triqui Lobby");
+        setPreferredSize(new java.awt.Dimension(300, 350));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
-        txtLobby.setText("Lobby");
-        jPanel1.add(txtLobby);
+        jPanel1.setMinimumSize(new java.awt.Dimension(33, 38));
+        jPanel1.setPreferredSize(new java.awt.Dimension(62, 24));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        txtLobby.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtLobby.setText("   Lobby");
+        jPanel1.add(txtLobby, java.awt.BorderLayout.WEST);
+
+        lblPlayerName.setText("pName");
+        jPanel1.add(lblPlayerName, java.awt.BorderLayout.EAST);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -73,20 +93,24 @@ public class lobby extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new lobby().setVisible(true);
+                Player p = new Player(1, "defaultPlayer",
+                        Player.Status.WAITING, null);
+                
+                new Lobby(p).setVisible(true);
             }
         });
     }
@@ -95,6 +119,7 @@ public class lobby extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblPlayerName;
     private javax.swing.JPanel pnlPlayerList;
     private javax.swing.JLabel txtLobby;
     // End of variables declaration//GEN-END:variables
