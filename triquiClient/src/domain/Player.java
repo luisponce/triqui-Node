@@ -5,21 +5,30 @@
  */
 package domain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jonathaneidelman
  */
 public class Player {
-    public String name;
-    public int id;
-    public String status;
+    private final int id;
+    private final String name;
+    private String status;
+    
+    private ArrayList<Notification> notifications;
+
+    public Player(int id, String name, String status,
+            ArrayList<Notification> notifications) {
+        
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.notifications = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getStatus() {
@@ -34,5 +43,11 @@ public class Player {
         return id;
     }
     
+    public ArrayList<Notification> getNotifications(){
+        return notifications;
+    }
     
+    public void addNotification(Notification notification){
+        notifications.add(notification);
+    }
 }

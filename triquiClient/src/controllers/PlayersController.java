@@ -11,11 +11,11 @@ import domain.Player;
  */
 public class PlayersController {
     
-    public Player createPlayer(String name){
-        Player p1 = new Player();
-        
-        return p1;
-    }
+//    public Player createPlayer(String name){
+//        //Player p1 = new Player();
+//        
+//        //return p1;
+//    }
     
     
 }
