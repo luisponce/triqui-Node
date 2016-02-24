@@ -19,7 +19,7 @@ module.exports = {
 			defaultsTo: 'waiting'
 		},
 
-		notifications: {
+		notification: {
 			collection: 'Notification',
 			via: 'to'
 		}
