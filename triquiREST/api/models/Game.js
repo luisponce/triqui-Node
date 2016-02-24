@@ -17,10 +17,17 @@ module.exports = {
 			required: true
 		}, 
 		board: {
-			type: 'array'
+			type: 'array',
+			defaultsTo: 
+			[
+				['-','-','-'],
+				['-','-','-'],
+				['-','-','-']
+			]
 		},
 		playerTurn: {
-			type: 'int'
+			type: 'int',
+			defaultsTo: 1
 		}
 	}
 };
