@@ -27,6 +27,13 @@ public class Player {
         this.notifications = new ArrayList<>();
     }
 
+    public Player() {
+        id = -1;
+        name = "";
+    }
+    
+    
+
     public String getName() {
         return name;
     }
