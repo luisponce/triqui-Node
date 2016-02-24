@@ -28,10 +28,10 @@ public class game extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblPlayer1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        panelGame = new javax.swing.JPanel();
+        lblPlayer2 = new javax.swing.JLabel();
+        pnlGame = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -42,58 +42,50 @@ public class game extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblTurno = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        lblGanador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Partida de triqui");
 
-        jLabel2.setText("Player 1");
+        lblPlayer1.setText("Player 1");
 
         jLabel3.setText("VS");
 
-        jLabel4.setText("Player 2");
+        lblPlayer2.setText("Player 2");
 
-        panelGame.setLayout(new java.awt.GridLayout(3, 3));
-        panelGame.add(jButton1);
-        panelGame.add(jButton2);
+        pnlGame.setLayout(new java.awt.GridLayout(3, 3));
+        pnlGame.add(jButton1);
+        pnlGame.add(jButton2);
 
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        panelGame.add(jButton3);
-        panelGame.add(jButton4);
-        panelGame.add(jButton5);
+        pnlGame.add(jButton3);
+        pnlGame.add(jButton4);
+        pnlGame.add(jButton5);
 
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        panelGame.add(jButton6);
-        panelGame.add(jButton7);
-        panelGame.add(jButton8);
-        panelGame.add(jButton9);
+        pnlGame.add(jButton6);
+        pnlGame.add(jButton7);
+        pnlGame.add(jButton8);
+        pnlGame.add(jButton9);
 
         jLabel5.setText("Turno de:");
 
-        jLabel6.setText("Player");
+        lblTurno.setText("Player");
 
         jLabel7.setText("Ganador");
 
-        jLabel8.setText("Player");
-
-        jButton10.setText("Reiniciar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
+        lblGanador.setText("Player");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,17 +97,17 @@ public class game extends javax.swing.JFrame {
                 .addGap(148, 148, 148))
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(panelGame, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlGame, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lblPlayer1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(92, 92, 92)
-                        .addComponent(jLabel4)
+                        .addComponent(lblPlayer2)
                         .addGap(57, 57, 57))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
@@ -124,11 +116,9 @@ public class game extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10)
-                        .addContainerGap())))
+                            .addComponent(lblGanador)
+                            .addComponent(lblTurno))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,26 +127,20 @@ public class game extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblPlayer1)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblPlayer2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGame, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10)
-                        .addGap(17, 17, 17))))
+                .addComponent(pnlGame, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblTurno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblGanador))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,10 +153,6 @@ public class game extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,7 +191,6 @@ public class game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -221,13 +200,13 @@ public class game extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel panelGame;
+    private javax.swing.JLabel lblGanador;
+    private javax.swing.JLabel lblPlayer1;
+    private javax.swing.JLabel lblPlayer2;
+    private javax.swing.JLabel lblTurno;
+    private javax.swing.JPanel pnlGame;
     // End of variables declaration//GEN-END:variables
 }
