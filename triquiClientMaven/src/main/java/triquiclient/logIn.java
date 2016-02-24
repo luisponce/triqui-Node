@@ -6,6 +6,7 @@
 package triquiclient;
 
 import controllers.PlayersController;
+import domain.Player;
 
 /**
  *
@@ -29,14 +30,14 @@ public class logIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtWelcome = new javax.swing.JLabel();
+        lblWelcome = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         btnUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtWelcome.setText("Bienvenido a Triqui");
+        lblWelcome.setText("Bienvenido a Triqui");
 
         lblUsuario.setText("Nombre de usuario");
 
@@ -67,7 +68,7 @@ public class logIn extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtWelcome)
+                        .addComponent(lblWelcome)
                         .addGap(109, 109, 109))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnUsuario)
@@ -77,14 +78,14 @@ public class logIn extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtWelcome)
+                .addComponent(lblWelcome)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUsuario)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -98,6 +99,12 @@ public class logIn extends javax.swing.JFrame {
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         // TODO add your handling code here:
+        String pName = txtUsuario.getText();
+        
+        System.out.println("Create player: " + pName);
+        
+        Player p = new Player(1, pName, "waiting", null);
+        openLobby(p);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     /**
@@ -134,11 +141,17 @@ public class logIn extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void openLobby(Player p){
+        new Lobby(p).setVisible(true);
+        
+        this.setVisible(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUsuario;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblWelcome;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
 }

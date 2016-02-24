@@ -45,7 +45,6 @@ public class Lobby extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Triqui Lobby");
         setPreferredSize(new java.awt.Dimension(300, 350));
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setMinimumSize(new java.awt.Dimension(33, 38));
         jPanel1.setPreferredSize(new java.awt.Dimension(62, 24));
@@ -55,7 +54,7 @@ public class Lobby extends javax.swing.JFrame {
         txtLobby.setText("   Lobby");
         jPanel1.add(txtLobby, java.awt.BorderLayout.WEST);
 
-        lblPlayerName.setText("pName");
+        lblPlayerName.setText("pName   ");
         jPanel1.add(lblPlayerName, java.awt.BorderLayout.EAST);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);

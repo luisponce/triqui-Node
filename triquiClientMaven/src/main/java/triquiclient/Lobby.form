@@ -57,7 +57,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblPlayerName">
           <Properties>
-            <Property name="text" type="java.lang.String" value="pName"/>
+            <Property name="text" type="java.lang.String" value="pName   "/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
