@@ -36,10 +36,25 @@ TiquiREST is a simple api to play the clasic game "triqui" online.
 + Response 201 
 
         {
+            "id":1,
             "name":"jhon",
             "status":"waiting"
         }
   
++ Request (application/json)
+
+        {
+            "name": "Juan"
+        }
+        
++ Response 201
+
+        {
+            "id":2,
+            "name":"jhon",
+            "status":"waiting"
+        }
+
 
 ## Connected Players notifications Collection [/player/{pid}/notification]  
 
