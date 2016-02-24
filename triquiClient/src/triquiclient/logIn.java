@@ -5,6 +5,8 @@
  */
 package triquiclient;
 
+import controllers.PlayersController;
+
 /**
  *
  * @author jonathaneidelman
@@ -45,6 +47,11 @@ public class logIn extends javax.swing.JFrame {
         });
 
         btnUsuario.setText("Jugar");
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,6 +95,13 @@ public class logIn extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        // TODO add your handling code here:
+        PlayersController pc = new PlayersController();
+        String name = txtUsuario.getText();
+        pc.createPlayer(name);
+    }//GEN-LAST:event_btnUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
