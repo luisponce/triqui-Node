@@ -98,9 +98,6 @@ public class logIn extends javax.swing.JFrame {
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         // TODO add your handling code here:
-        PlayersController pc = new PlayersController();
-        String name = txtUsuario.getText();
-        pc.createPlayer(name);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     /**
