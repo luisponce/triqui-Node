@@ -11,7 +11,7 @@ TiquiREST is a simple api to play the clasic game "triqui" online.
 
 ### List All connected players [GET]
 
-+ Response 200 (application/json)
++ Response 200 
 
         [
             {
@@ -33,7 +33,7 @@ TiquiREST is a simple api to play the clasic game "triqui" online.
             "name": "jhon"
         }
 
-+ Response 201 (application/json)
++ Response 201 
   
 
 ## Connected Players notifications Collection [/player/{name}/notification]  
@@ -46,7 +46,7 @@ Pending notification of a given player.
 
 ### Get player's pending notifications  [GET]
 
-+ Response 200 (application/json)
++ Response 200 
 
         [
             {
@@ -71,7 +71,7 @@ Pending notification of a given player.
             "sender":"Juan"
         }
 
-+ Response 201 (application/json) 
++ Response 201
 
         {
             "id": 1,
@@ -88,7 +88,7 @@ Pending notification of a given player.
 ### Delete player's notification  [DELETE]
 
 
-+ Response 204 (application/json)
++ Response 204 
 
 # Group Game
 
@@ -96,7 +96,7 @@ Pending notification of a given player.
 
 ### List all active games [GET]
 
-+ Response 200 (application/json)
++ Response 200 
 
         [
             {
@@ -115,7 +115,7 @@ Pending notification of a given player.
             "player2":"pedro1"
         }
 
-+ Response 201 (application/json) 
++ Response 201 
 
         {
             "id": 1,
@@ -136,7 +136,7 @@ Pending notification of a given player.
 
 ### Get detailled game [GET]
 
-+ Response 200 (application/json)
++ Response 200
 
         {
             "id": 1,
@@ -164,7 +164,7 @@ Pending notification of a given player.
             "playerTurn":"pedro1"
         }
 
-+ Response 200 (application/json)
++ Response 200
 
         {
             "id": 1,
@@ -180,4 +180,4 @@ Pending notification of a given player.
 
 ### Delete Game [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
