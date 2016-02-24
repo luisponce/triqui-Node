@@ -57,12 +57,15 @@ Pending notification of a given player.
             {
                 "id": 1,
                 "type":"gameinvite",
-                "sender":"Juan"
+                "accepted":false,
+                "sender":1
             },
             {
                 "id": 2,
                 "type":"gameinvite",
-                "sender":"Pedro"
+                "accepted":true,
+                "game":1,
+                "sender":2
             }
         ]
 
@@ -85,18 +88,39 @@ Pending notification of a given player.
                   "type": "gameinvite",
                   "sender": 2,
                   "to": 1,
+                  "accepted":false,
                   "id": 1
                 }
             ]
         }
 
-## Connected Players notification [/player/{pid}/notification/{id}]
+# Group Notifications
+
+## Connected Players notification [/notification/{id}]
 
 + Parameters
-    + pid (required, number, `1`) ... id of the player.
     + id (required, number, `1`) ... `id` of the notification.
 
-### Delete player's notification  [DELETE]
+### Accept notification [POST]
+
++ Request (application/json)
+
+        {
+          "accepted":true
+        }
+    
+
++ Response 200
+
+        {
+          "type": "gameinvite",
+          "sender": 2,
+          "to": 1,
+          "accepted":false,
+          "id": 1
+        }
+
+### Delete notification  [DELETE]
 
 
 + Response 204 
