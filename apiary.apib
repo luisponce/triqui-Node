@@ -34,14 +34,19 @@ TiquiREST is a simple api to play the clasic game "triqui" online.
         }
 
 + Response 201 
+
+        {
+            "name":"jhon",
+            "status":"waiting"
+        }
   
 
-## Connected Players notifications Collection [/player/{name}/notification]  
+## Connected Players notifications Collection [/player/{pid}/notification]  
 
 Pending notification of a given player.
 
  + Parameters
-    + name (required, text, `jhon`) ... `name` of the player.
+    + pid (required, number, `1`) ... id of the player.
  
 
 ### Get player's pending notifications  [GET]
@@ -79,10 +84,10 @@ Pending notification of a given player.
             "sender":"Juan"
         }
 
-## Connected Players notification [/player/{name}/notification/{id}]
+## Connected Players notification [/player/{pid}/notification/{id}]
 
 + Parameters
-    + name (required, text, `jhon`) ... `name` of the player.
+    + pid (required, number, `1`) ... id of the player.
     + id (required, number, `1`) ... `id` of the notification.
 
 ### Delete player's notification  [DELETE]
