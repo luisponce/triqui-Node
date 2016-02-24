@@ -138,9 +138,14 @@ Pending notification of a given player.
 ### Delete notification  [DELETE]
 
 
-+ Response 204 
++ Response 200
 
-
+        {
+          "type": "gameinvite",
+          "sender": 2,
+          "to": 1,
+          "id": 1
+        }
 
 # Group Game
 
@@ -230,4 +235,10 @@ Pending notification of a given player.
 
 ### Delete Game [DELETE]
 
-+ Response 204
++ Response 200
+
+        {
+            "id": 1,
+            "player1":1,
+            "player2":2,
+        }
