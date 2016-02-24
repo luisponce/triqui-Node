@@ -108,8 +108,8 @@ Pending notification of a given player.
         [
             {
                 "id":1,
-                "player1":"juan",
-                "player2":"pedro1"
+                "player1":1,
+                "player2":2
             }
         ]
 
@@ -118,22 +118,22 @@ Pending notification of a given player.
 + Request (application/json)
 
         {
-            "player1":"juan",
-            "player2":"pedro1"
+            "player1":1,
+            "player2":2
         }
 
 + Response 201 
 
         {
             "id": 1,
-            "player1":"juan",
-            "player2":"pedro1",
+            "player1":1,
+            "player2":2,
             "board":[
                 ["-","-","-"],
                 ["-","-","-"],
                 ["-","-","-"]
             ],
-            "playerTurn":"juan"
+            "playerTurn":1
         }
 
 ## Active game [/game/{id}]
@@ -147,14 +147,14 @@ Pending notification of a given player.
 
         {
             "id": 1,
-            "player1":"juan",
-            "player2":"pedro1",
+            "player1":1,
+            "player2":2,
             "board":[
                 ["-","-","-"],
                 ["-","-","-"],
                 ["-","-","-"]
             ],
-            "playerTurn":"juan"
+            "playerTurn":1
         }
 
 ### Update Game [POST]
@@ -168,21 +168,21 @@ Pending notification of a given player.
                 ["-","-","-"],
                 ["-","-","-"]
             ],
-            "playerTurn":"pedro1"
+            "playerTurn":2
         }
 
 + Response 200
 
         {
             "id": 1,
-            "player1":"juan",
-            "player2":"pedro1",
+            "player1":1,
+            "player2":2,
             "board":[
                 ["x","-","-"],
                 ["-","-","-"],
                 ["-","-","-"]
             ],
-            "playerTurn":"juan"
+            "playerTurn":1
         }
 
 ### Delete Game [DELETE]
