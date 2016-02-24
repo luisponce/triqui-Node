@@ -20,7 +20,11 @@ module.exports = {
   		to: {
   			model: 'Player',
   			required: true
-  		}
+  		},
+      accepted: {
+        type: 'boolean',
+        defaultsTo: 'false'
+      }
   	}
 };
 
