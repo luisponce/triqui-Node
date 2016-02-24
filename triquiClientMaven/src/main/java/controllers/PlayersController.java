@@ -39,6 +39,7 @@ public class PlayersController {
         int id = Integer.parseInt(playersId);
         String playersStatus = js.getString("status");
         
+        
         p1 = new Player(id, playersName, playersStatus, null);
         
         return p1;
