@@ -80,10 +80,14 @@ Pending notification of a given player.
 + Response 201
 
         {
-            "id": 1,
-            "type":"gameinvite",
-            "sender":2,
-            "to":1
+            "notification": [
+                {
+                  "type": "gameinvite",
+                  "sender": 2,
+                  "to": 1,
+                  "id": 1
+                }
+            ]
         }
 
 ## Connected Players notification [/player/{pid}/notification/{id}]
