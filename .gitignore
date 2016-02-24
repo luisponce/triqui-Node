@@ -38,3 +38,4 @@ node_modules
 
 # OS related
 .DS_Store
+/triquiClientMaven/target/
