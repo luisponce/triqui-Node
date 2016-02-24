@@ -36,6 +36,7 @@ public class logIn extends javax.swing.JFrame {
         btnUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
 
         lblWelcome.setText("Bienvenido a Triqui");
 

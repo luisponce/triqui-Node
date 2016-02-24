@@ -6,6 +6,9 @@
 package triquiclient;
 
 import domain.Player;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.ListModel;
 
 /**
  *
@@ -15,6 +18,8 @@ public class Lobby extends javax.swing.JFrame {
 
     private Player player;
     
+    private Player[] onlinePlayers;
+    
     /**
      * Creates new form lobby
      */
@@ -22,6 +27,8 @@ public class Lobby extends javax.swing.JFrame {
         this.player = p;
         
         initComponents();
+        
+        
         
         lblPlayerName.setText(p.getName());
     }
@@ -40,10 +47,11 @@ public class Lobby extends javax.swing.JFrame {
         lblPlayerName = new javax.swing.JLabel();
         pnlPlayerList = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        listPlayers = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Triqui Lobby");
+        setLocationByPlatform(true);
         setPreferredSize(new java.awt.Dimension(300, 350));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(33, 38));
@@ -61,12 +69,8 @@ public class Lobby extends javax.swing.JFrame {
 
         pnlPlayerList.setLayout(new java.awt.BorderLayout());
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
+        listPlayers.setModel(generateListModel());
+        jScrollPane3.setViewportView(listPlayers);
 
         pnlPlayerList.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
@@ -113,12 +117,28 @@ public class Lobby extends javax.swing.JFrame {
             }
         });
     }
+    
+    public ListModel generateListModel(){
+        DefaultListModel pNames = new DefaultListModel();
+        
+        //TODO: get the online players from the server
+        onlinePlayers = new Player[6];
+        for(int i = 0; i<6; i++){
+            Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
+            onlinePlayers[i] = nPlayer;
+        }
+        
+        for (Player curPlayer : onlinePlayers) {
+            pNames.addElement(curPlayer.getName());
+        }
+        return pNames;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblPlayerName;
+    private javax.swing.JList listPlayers;
     private javax.swing.JPanel pnlPlayerList;
     private javax.swing.JLabel txtLobby;
     // End of variables declaration//GEN-END:variables
