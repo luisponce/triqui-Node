@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package triquiclient;
-
+import controllers.PlayersController;
 /**
  *
  * @author jonathaneidelman
@@ -16,6 +16,9 @@ public class TriquiClient {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        PlayersController pc = new PlayersController();
+        
+        pc.createPlayer("{ name: \"Jonathan\" }");
     }
     
 }
