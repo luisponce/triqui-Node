@@ -1,0 +1,27 @@
+reporter: apiary
+custom:
+  apiaryApiKey: 6df3976ab0d65a53d3e4de0083c4e0fb
+  apiaryApiName: triquirest
+dry-run: null
+hookfiles: null
+language: nodejs
+sandbox: false
+server: sails lift
+server-wait: 3
+init: false
+names: false
+only: []
+output: []
+header: []
+sorted: false
+user: null
+inline-errors: false
+details: false
+method: []
+color: true
+level: info
+timestamp: false
+silent: false
+path: []
+blueprint: ../apiary.apib
+endpoint: 'http://localhost:1337'
