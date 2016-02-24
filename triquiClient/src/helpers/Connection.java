@@ -18,6 +18,8 @@ import java.net.URL;
  * @author jonathaneidelman
  */
 public class Connection {
+    
+    public static String serverURL = "private-33fd22-triquirest.apiary-mock.com";
     public String makeGETRequest(String path, String serverURL){
         String res = "";
         try {

@@ -12,16 +12,23 @@ import helpers.Connection;
  */
 public class PlayersController {
     
-    public Player createPlayer(String body){
+    public Player createPlayer(String name){
         Player p1 = new Player();
         Connection c = new Connection();
         String res;
         
-        res = c.makePOSTRequest("/player", body, "private-33fd22-triquirest.apiary-mock.com");
+        String body = "{ name: \"" + name + "\" }";
+        
+        res = c.makePOSTRequest("/player", body, Connection.serverURL);
         
         System.out.println("Respuesta: " + res);
-        
         return p1;
+    }
+    
+    public Player[] listAllConnectedPlayers(){
+       Player[] players = new Player[100];
+       
+       return players;
     }
     
     
