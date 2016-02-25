@@ -14,7 +14,7 @@ import javax.swing.ListModel;
  *
  * @author jonathaneidelman
  */
-public class Lobby extends javax.swing.JFrame {
+public class LobbyUI extends javax.swing.JFrame {
 
     private Player player;
     
@@ -23,7 +23,7 @@ public class Lobby extends javax.swing.JFrame {
     /**
      * Creates new form lobby
      */
-    public Lobby(Player p) {
+    public LobbyUI(Player p) {
         this.player = p;
         
         initComponents();
@@ -48,6 +48,8 @@ public class Lobby extends javax.swing.JFrame {
         pnlPlayerList = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listPlayers = new javax.swing.JList();
+        jPanel2 = new javax.swing.JPanel();
+        btnChallenge = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Triqui Lobby");
@@ -76,8 +78,26 @@ public class Lobby extends javax.swing.JFrame {
 
         getContentPane().add(pnlPlayerList, java.awt.BorderLayout.CENTER);
 
+        btnChallenge.setText("Challenge Player");
+        btnChallenge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChallengeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnChallenge);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnChallengeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChallengeActionPerformed
+        Player selectedPlayer;
+        selectedPlayer = onlinePlayers[listPlayers.getSelectedIndex()];
+        
+        //TODO: send invitation to selected player
+        System.out.println("selected player id: " + selectedPlayer.getId());
+    }//GEN-LAST:event_btnChallengeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,13 +116,13 @@ public class Lobby extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Lobby.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -113,7 +133,7 @@ public class Lobby extends javax.swing.JFrame {
                 Player p = new Player(1, "defaultPlayer",
                         "waiting", null);
                 
-                new Lobby(p).setVisible(true);
+                new LobbyUI(p).setVisible(true);
             }
         });
     }
@@ -121,7 +141,7 @@ public class Lobby extends javax.swing.JFrame {
     public ListModel generateListModel(){
         DefaultListModel pNames = new DefaultListModel();
         
-        //TODO: get the online players from the server
+        //TODO: get the online players from the server (minus the logged player)
         onlinePlayers = new Player[6];
         for(int i = 0; i<6; i++){
             Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
@@ -135,7 +155,9 @@ public class Lobby extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChallenge;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblPlayerName;
     private javax.swing.JList listPlayers;

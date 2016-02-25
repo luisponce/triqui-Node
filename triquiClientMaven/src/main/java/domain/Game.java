@@ -22,6 +22,17 @@ public class Game {
     private Tile[][] board;
     private Player player1;
     private Player player2;
+
+    public Game(int id, int playerInTurn, Tile[][] board, Player player1, Player player2) {
+        this.id = id;
+        this.playerInTurn = playerInTurn;
+        this.board = board;
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
+    public Game() {
+    }
     
     
     

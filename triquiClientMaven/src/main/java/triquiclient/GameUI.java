@@ -5,16 +5,23 @@
  */
 package triquiclient;
 
+import domain.Game;
+import domain.Player;
+
 /**
  *
  * @author jonathaneidelman
  */
-public class game extends javax.swing.JFrame {
+public class GameUI extends javax.swing.JFrame {
 
+    private Game game;
+    
     /**
      * Creates new form game
      */
-    public game() {
+    public GameUI(Game g) {
+        this.game = g;
+        
         initComponents();
     }
 
@@ -171,20 +178,21 @@ public class game extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new game().setVisible(true);
+                Game g = new Game();
+                new GameUI(g).setVisible(true);
             }
         });
     }
