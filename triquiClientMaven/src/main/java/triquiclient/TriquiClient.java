@@ -19,6 +19,8 @@ public class TriquiClient {
         PlayersController pc = new PlayersController();
         
         pc.createPlayer("Jonathan");
+        
+        pc.listAllConnectedPlayers();
     }
     
 }

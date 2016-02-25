@@ -6,6 +6,7 @@
 package controllers;
 import domain.Player;
 import helpers.Connection;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONML;
@@ -35,8 +36,7 @@ public class PlayersController {
         JSONObject js  = new JSONObject(res);
         
         String playersName = js.getString("name");
-        String playersId = js.getString("id");
-        int id = Integer.parseInt(playersId);
+        int id = js.getInt("id");
         String playersStatus = js.getString("status");
         
         
@@ -45,8 +45,26 @@ public class PlayersController {
         return p1;
     }
     
-    public Player[] listAllConnectedPlayers(){
-       Player[] players = new Player[100];
+    public ArrayList listAllConnectedPlayers(){
+       //Player[] players = new Player[100];
+        ArrayList<Player> players = new ArrayList();
+       Connection c = new Connection();
+       String response = c.makeGETRequest("/player", Connection.serverURL);
+       System.out.println("Respuesta!!! \n \n" + response);
+       JSONArray js  = new JSONArray(response);
+       
+       for (Object o : js) {
+            JSONObject player = (JSONObject) o;
+            String name = player.getString("name");
+            String status = player.getString("status");
+            //int id = player.getInt("id");
+            Player p1 = new Player(-1, name, status, null);
+            players.add(p1);
+        }
+       
+       for(int i = 0; i < players.size(); i++){
+           System.out.println("Player's " + i + " name: " + players.get(i).getName());
+       }
        
        return players;
     }
