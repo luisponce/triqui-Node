@@ -5,9 +5,10 @@
  */
 package triquiclient;
 
+import controllers.PlayersController;
 import domain.Player;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.ListModel;
 
 /**
@@ -18,7 +19,7 @@ public class LobbyUI extends javax.swing.JFrame {
 
     private Player player;
     
-    private Player[] onlinePlayers;
+    private ArrayList<Player> onlinePlayers;
     
     /**
      * Creates new form lobby
@@ -93,7 +94,7 @@ public class LobbyUI extends javax.swing.JFrame {
 
     private void btnChallengeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChallengeActionPerformed
         Player selectedPlayer;
-        selectedPlayer = onlinePlayers[listPlayers.getSelectedIndex()];
+        selectedPlayer = onlinePlayers.get(listPlayers.getSelectedIndex());
         
         //TODO: send invitation to selected player
         System.out.println("selected player id: " + selectedPlayer.getId());
@@ -142,11 +143,13 @@ public class LobbyUI extends javax.swing.JFrame {
         DefaultListModel pNames = new DefaultListModel();
         
         //TODO: get the online players from the server (minus the logged player)
-        onlinePlayers = new Player[6];
-        for(int i = 0; i<6; i++){
-            Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
-            onlinePlayers[i] = nPlayer;
-        }
+        PlayersController pc = PlayersController.GetInstance();
+        
+        onlinePlayers = pc.listAllConnectedPlayers();
+        //for(int i = 0; i<onlinePlayers.size(); i++){
+        //    Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
+        //    onlinePlayers[i] = nPlayer;
+        //}
         
         for (Player curPlayer : onlinePlayers) {
             pNames.addElement(curPlayer.getName());
