@@ -10,6 +10,7 @@ import domain.Game.Tile;
 import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
+import javax.management.remote.JMXConnectorFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONML;
@@ -84,5 +85,35 @@ public class GameController {
         //Tile[][] board;
         //game = new Game(id, playerInTurn, board, p1, p2);
         return game;
+    }
+    
+    public Game fetchGame(int id){
+        Connection c = new Connection();
+        
+        JSONObject resp = 
+                new JSONObject(c.makeGETRequest("/game/"+id,
+                        Connection.serverURL));
+        
+        return jsonToGame(resp);
+    }
+    
+    public Game jsonToGame(JSONObject json){
+        int id = json.getInt("id");
+        int playerInTurn = json.getInt("playerTurn");
+        Tile[][] board = jsonToBoard(json.getJSONObject("board"));
+        Player p1 = PlayersController.GetInstance().
+                jsonToPlayer(json.getJSONObject("player1"));
+        Player p2 = PlayersController.GetInstance().
+                jsonToPlayer(json.getJSONObject("player2"));
+        
+        return new Game(id, playerInTurn, board, p1, p2);
+    }
+    
+    public Tile[][] jsonToBoard(JSONObject json){
+        Tile[][] board = new Tile[3][3];
+        
+        //TODO: populate board from json
+        
+        return board;
     }
 }

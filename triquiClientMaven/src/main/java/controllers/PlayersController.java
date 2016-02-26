@@ -9,14 +9,7 @@ import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONML;
 import org.json.JSONObject;
-import org.json.JSONString;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
-import org.json.JSONWriter;
-import sun.security.jca.GetInstance;
 /**
  *
  * @author jonathaneidelman
@@ -46,41 +39,21 @@ public class PlayersController {
         
         res = c.makePOSTRequest("/player", body, Connection.serverURL);
         
-        System.out.println("Respuesta: " + res);
-        
-        //JSONParser parser = new JSONParser();
-        JSONObject js  = new JSONObject(res);
-        
-        String playersName = js.getString("name");
-        int id = js.getInt("id");
-        String playersStatus = js.getString("status");
-        
-        
-        p1 = new Player(id, playersName, playersStatus, null);
-        
-        return p1;
+        return jsonToPlayer(new JSONObject(res));
     }
     
     public ArrayList<Player> listAllConnectedPlayers(){
        //Player[] players = new Player[100];
-        ArrayList<Player> players = new ArrayList();
+       ArrayList<Player> players = new ArrayList();
        Connection c = new Connection();
        String response = c.makeGETRequest("/player", Connection.serverURL);
-       System.out.println("Respuesta!!! \n \n" + response);
-       JSONArray js  = new JSONArray(response);
        
-       for (Object o : js) {
-            JSONObject player = (JSONObject) o;
-            String name = player.getString("name");
-            String status = player.getString("status");
-            //int id = player.getInt("id");
-            Player p1 = new Player(-1, name, status, null);
-            players.add(p1);
+       JSONArray playerArray  = new JSONArray(response);
+       
+       for (int i = 0; i<playerArray.length(); i++) {
+           Player p = jsonToPlayer(playerArray.getJSONObject(i));
+           players.add(p);
         }
-       
-       for(int i = 0; i < players.size(); i++){
-           System.out.println("Player's " + i + " name: " + players.get(i).getName());
-       }
        
        return players;
     }
@@ -89,25 +62,24 @@ public class PlayersController {
         ArrayList <Notification> notifications = new ArrayList();
         Connection c = new Connection();
         String response = 
-                c.makeGETRequest("/player/" + player.getId() + "/notification", Connection.serverURL);
-        JSONArray js  = new JSONArray(response);
+                c.makeGETRequest("/player/" + player.getId() + "/notification",
+                        Connection.serverURL);
+        JSONArray notificationArray = new JSONArray(response);
        
-       for (Object o : js) {
-            JSONObject not = (JSONObject) o;
-            int nId = not.getInt("id");
-            String type = not.getString("type");
-            Boolean accepted = not.getBoolean("accepted");
-            int sender = not.getInt("sender");
-            Player p1 = new Player(sender,"", null, null);
-            Notification n1 = new Notification(nId, p1, player, Notification.Type.GAMEINVITE, accepted);
-            notifications.add(n1);
+       for (int i = 0; i<notificationArray.length(); i++) {
+           Notification n = NotificationController.GetInstance().
+                   jsonToNotification(notificationArray.getJSONObject(i));
+           
+           notifications.add(n);
         }
-       
-       for(int i = 0; i < notifications.size(); i++){
-           System.out.println("Notification's " + i + " name: " + notifications.get(i).getId());
-       }
         return notifications;
     }
     
-    
+    public Player jsonToPlayer(JSONObject json){
+        int id = json.getInt("id");
+        String name = json.getString("name");
+        String status = json.getString("status");
+        
+        return new Player(id, name, status);
+    }
 }
