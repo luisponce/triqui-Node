@@ -77,7 +77,8 @@ public class Connection {
                 
             
             
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED && 
+                    conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 		throw new RuntimeException("Failed : HTTP error code : "
 		+ conn.getResponseCode());
             }

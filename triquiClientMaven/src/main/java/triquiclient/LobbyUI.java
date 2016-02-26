@@ -6,6 +6,7 @@
 package triquiclient;
 
 import controllers.PlayersController;
+import domain.Notification;
 import domain.Player;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -96,8 +97,12 @@ public class LobbyUI extends javax.swing.JFrame {
         Player selectedPlayer;
         selectedPlayer = onlinePlayers.get(listPlayers.getSelectedIndex());
         
-        //TODO: send invitation to selected player
-        System.out.println("selected player id: " + selectedPlayer.getId());
+        Notification n = new Notification(-1, player, selectedPlayer,
+                Notification.Type.GAMEINVITE, false);
+        n = PlayersController.GetInstance().sendNotificationToPlayer(n);
+        
+        //TODO: wait for invitation response
+        System.out.println("notification id: "+ n.getId());
     }//GEN-LAST:event_btnChallengeActionPerformed
 
     /**

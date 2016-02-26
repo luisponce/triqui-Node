@@ -38,6 +38,22 @@ public class Notification {
     public int getId() {
         return id;
     }
+
+    public Player getSender() {
+        return sender;
+    }
+
+    public Player getTo() {
+        return to;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
     
     
 }

@@ -30,6 +30,13 @@ public class PlayersController {
         return instance;
     }
     
+    public Player fetchPlayer(int id){
+        Connection c = new Connection();
+        
+        String res = c.makeGETRequest("/player/"+id, Connection.serverURL);
+        return jsonToPlayer(new JSONObject(res));
+    }
+    
     public Player createPlayer(String name){
         Player p1 = new Player();
         Connection c = new Connection();
@@ -73,6 +80,27 @@ public class PlayersController {
            notifications.add(n);
         }
         return notifications;
+    }
+    
+    public Notification sendNotificationToPlayer(Notification n){
+        Connection c = new Connection();
+        
+        JSONObject body = new JSONObject();
+        //TODO: check for the notification type...
+        body.put("type", "gameinvite");
+        body.put("sender", n.getSender().getId());
+        body.put("to", n.getTo().getId());
+        
+        String res = c.makePOSTRequest("/player/"+n.getTo().getId()+"/notification", 
+                body.toString(), Connection.serverURL);
+        
+        JSONArray notificationQueue = 
+                new JSONObject(res).getJSONArray("notification");
+        JSONObject notification = 
+                notificationQueue.getJSONObject(notificationQueue.length()-1);
+        
+        return NotificationController.GetInstance()
+                .jsonToNotification(notification);
     }
     
     public Player jsonToPlayer(JSONObject json){

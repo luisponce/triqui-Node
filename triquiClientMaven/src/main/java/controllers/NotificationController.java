@@ -32,9 +32,9 @@ public class NotificationController {
     public Notification jsonToNotification(JSONObject json){
         int id = json.getInt("id");
         Player sender = PlayersController.GetInstance().
-                jsonToPlayer(json.getJSONObject("sender"));
+                fetchPlayer(json.getInt("sender"));
         Player to = PlayersController.GetInstance().
-                jsonToPlayer(json.getJSONObject("to"));
+                fetchPlayer(json.getInt("to"));
         //TODO get the actual type in case we add more notifications
         Notification.Type type = Notification.Type.GAMEINVITE;
         boolean accepted = json.getBoolean("accepted");
