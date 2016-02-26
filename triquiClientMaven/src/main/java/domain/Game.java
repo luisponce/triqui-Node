@@ -27,6 +27,15 @@ public class Game {
         }
     }
     
+    public Tile fromStringToEnum(String move){
+        switch(move){
+            case "-": return Tile.NONE;
+            case "x": return Tile.X;
+            case "O": return Tile.O;
+            default: return Tile.NONE;
+        }
+    }
+    
     private int id;
     private int playerInTurn;
     

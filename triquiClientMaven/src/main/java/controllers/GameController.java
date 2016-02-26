@@ -6,6 +6,7 @@
 package controllers;
 
 import domain.Game;
+import domain.Game.Tile;
 import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
@@ -59,8 +60,29 @@ public class GameController {
         }
         
         for(Game game : games){
-            System.out.println("Game: " + game.getId() + " p1: "  + game.getPlayer1().getId() + " p2: " + game.getPlayer2().getId());
+            System.out.println("Game: " + game.getId() + " p1: "  
+                    + game.getPlayer1().getId() + " p2: " 
+                    + game.getPlayer2().getId());
         }
         return games;
+    }
+    
+    public Game createGame(Player p1, Player p2){
+        Game game = new Game();
+        
+        Connection c = new Connection();
+        String body = "{ \"player1:" + p1.getId() + ", player2:" + p2.getId() 
+                + " }";
+        String response = c.makePOSTRequest("/game", body, Connection.serverURL);
+        
+        JSONObject js = new JSONObject(response);
+        int id = js.getInt("id");
+        int playerInTurn = js.getInt("playerTurn");
+        //TODO: get board and send it in a tile[][] to return the created game that the response sent.
+        JSONArray board = new JSONArray(js.getJSONArray("board"));
+        JSONArray row1 = new JSONArray(board.get(0));
+        //Tile[][] board;
+        //game = new Game(id, playerInTurn, board, p1, p2);
+        return game;
     }
 }

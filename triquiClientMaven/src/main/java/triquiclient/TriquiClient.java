@@ -28,7 +28,11 @@ public class TriquiClient {
         
         GameController g = GameController.getInstance();
         
+        Player p2 = new Player(1, "Hola", "waiting", null);
+        Player p3 = new Player(3, "Hola3", "waiting", null);
         g.listAllActiveGames();
+        g.createGame(p1, p2);
+        
     }
     
 }
