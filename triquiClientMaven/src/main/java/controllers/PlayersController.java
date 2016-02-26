@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package controllers;
+import domain.Notification;
 import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
@@ -67,6 +68,30 @@ public class PlayersController {
        }
        
        return players;
+    }
+    
+    public ArrayList getPlayersNotifications(int id){
+        ArrayList <Notification> notifications = new ArrayList();
+        Connection c = new Connection();
+        String response = 
+                c.makeGETRequest("/player/" + id + "/notification", Connection.serverURL);
+        JSONArray js  = new JSONArray(response);
+       
+       for (Object o : js) {
+            JSONObject not = (JSONObject) o;
+            int nId = not.getInt("id");
+            String type = not.getString("type");
+            Boolean accepted = not.getBoolean("accepted");
+            int sender = not.getInt("sender");
+            Player p1 = new Player(sender,"", null, null);
+            Notification n1 = new Notification(nId, null, p1, Notification.Type.GAMEINVITE, accepted);
+            notifications.add(n1);
+        }
+       
+       for(int i = 0; i < notifications.size(); i++){
+           System.out.println("Notification's " + i + " name: " + notifications.get(i).getId());
+       }
+        return notifications;
     }
     
     

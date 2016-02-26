@@ -21,6 +21,8 @@ public class TriquiClient {
         pc.createPlayer("Jonathan");
         
         pc.listAllConnectedPlayers();
+        
+        pc.getPlayersNotifications(1);
     }
     
 }
