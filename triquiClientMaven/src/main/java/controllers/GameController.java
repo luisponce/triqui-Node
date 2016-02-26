@@ -120,6 +120,21 @@ public class GameController {
     public Tile[][] jsonToBoard(JSONObject json){
         Tile[][] board = new Tile[3][3];
         
+        JSONArray boardJs = new JSONArray(json.toString());
+        ArrayList<JSONArray> rows = new ArrayList<JSONArray>();
+            
+        for(int i = 0; i < 3; ++i) {
+            JSONArray row = boardJs.getJSONArray(i);
+            rows.add(row);
+        }
+            
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
+                Game.Tile t = Game.fromStringToEnum(rows.get(i).getString(j));
+                board[i][j] = t;
+                System.out.println(board[i][j].toString());
+            }    
+        }
         //TODO: populate board from json
         
         return board;
