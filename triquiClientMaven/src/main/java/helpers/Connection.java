@@ -27,7 +27,7 @@ public class Connection {
             URL url = new URL("http://" + serverURL + path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            //conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
 		throw new RuntimeException("Failed : HTTP error code : "
@@ -62,19 +62,21 @@ public class Connection {
     public String makePOSTRequest(String path, String body, String serverURL){
        String res = "";
        try {
-
+           
             URL url = new URL("http://" + serverURL + path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
-            //conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Content-Type", "application/json");
 
             String input = body;
 
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes());
             os.flush();
-
+                
+            
+            
             if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
 		throw new RuntimeException("Failed : HTTP error code : "
 		+ conn.getResponseCode());
@@ -113,7 +115,7 @@ public class Connection {
             URL url = new URL("http://" + serverURL + path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
-            //conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
 		throw new RuntimeException("Failed : HTTP error code : "
