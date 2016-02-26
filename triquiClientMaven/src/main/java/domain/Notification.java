@@ -34,5 +34,10 @@ public class Notification {
     public void Accept(){
         this.accepted = true;
     }
+
+    public int getId() {
+        return id;
+    }
+    
     
 }
