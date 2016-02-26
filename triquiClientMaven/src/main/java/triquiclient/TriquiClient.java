@@ -16,7 +16,7 @@ public class TriquiClient {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        PlayersController pc = new PlayersController();
+        PlayersController pc = PlayersController.GetInstance();
         
         pc.createPlayer("Jonathan");
         

@@ -104,6 +104,7 @@ public class LogInUI extends javax.swing.JFrame {
         
         System.out.println("Create player: " + pName);
         
+        //TODO: Send player to server
         Player p = new Player(1, pName, "waiting", null);
         openLobby(p);
     }//GEN-LAST:event_btnUsuarioActionPerformed
