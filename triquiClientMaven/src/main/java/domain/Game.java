@@ -33,6 +33,18 @@ public class Game {
 
     public Game() {
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
     
     
     

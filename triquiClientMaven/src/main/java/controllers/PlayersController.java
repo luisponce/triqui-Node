@@ -70,11 +70,11 @@ public class PlayersController {
        return players;
     }
     
-    public ArrayList getPlayersNotifications(int id){
+    public ArrayList<Notification> getPlayersNotifications(Player player){
         ArrayList <Notification> notifications = new ArrayList();
         Connection c = new Connection();
         String response = 
-                c.makeGETRequest("/player/" + id + "/notification", Connection.serverURL);
+                c.makeGETRequest("/player/" + player.getId() + "/notification", Connection.serverURL);
         JSONArray js  = new JSONArray(response);
        
        for (Object o : js) {
@@ -84,7 +84,7 @@ public class PlayersController {
             Boolean accepted = not.getBoolean("accepted");
             int sender = not.getInt("sender");
             Player p1 = new Player(sender,"", null, null);
-            Notification n1 = new Notification(nId, null, p1, Notification.Type.GAMEINVITE, accepted);
+            Notification n1 = new Notification(nId, p1, player, Notification.Type.GAMEINVITE, accepted);
             notifications.add(n1);
         }
        

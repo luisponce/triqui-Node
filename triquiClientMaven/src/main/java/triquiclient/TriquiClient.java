@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package triquiclient;
+import controllers.GameController;
 import controllers.PlayersController;
+import domain.Player;
 /**
  *
  * @author jonathaneidelman
@@ -18,11 +20,15 @@ public class TriquiClient {
         // TODO code application logic here
         PlayersController pc = new PlayersController();
         
-        pc.createPlayer("Jonathan");
+        Player p1 = pc.createPlayer("Jonathan");
         
         pc.listAllConnectedPlayers();
         
-        pc.getPlayersNotifications(1);
+        pc.getPlayersNotifications(p1);
+        
+        GameController g = GameController.getInstance();
+        
+        g.listAllActiveGames();
     }
     
 }
