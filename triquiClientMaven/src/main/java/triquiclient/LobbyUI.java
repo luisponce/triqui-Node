@@ -151,12 +151,14 @@ public class LobbyUI extends javax.swing.JFrame {
         PlayersController pc = PlayersController.GetInstance();
         
         onlinePlayers = pc.listAllConnectedPlayers();
+        
         //for(int i = 0; i<onlinePlayers.size(); i++){
         //    Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
         //    onlinePlayers[i] = nPlayer;
         //}
         
         for (Player curPlayer : onlinePlayers) {
+            if(curPlayer.getId() != player.getId())
             pNames.addElement(curPlayer.getName());
         }
         return pNames;
