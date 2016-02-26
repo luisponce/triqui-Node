@@ -33,11 +33,11 @@ public class PlayersController {
     public Player createPlayer(String name){
         Player p1 = new Player();
         Connection c = new Connection();
-        String res;
+        JSONObject reqBody = new JSONObject();
+        reqBody.put("name", name);
         
-        String body = "{ name: \"" + name + "\" }";
-        
-        res = c.makePOSTRequest("/player", body, Connection.serverURL);
+        String res = c.makePOSTRequest("/player",
+                reqBody.toString(), Connection.serverURL);
         
         return jsonToPlayer(new JSONObject(res));
     }

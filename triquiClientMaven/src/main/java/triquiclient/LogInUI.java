@@ -104,7 +104,7 @@ public class LogInUI extends javax.swing.JFrame {
         
         System.out.println("Create player: " + pName);
         
-        //TODO: Send player to server
+        //Send player to server
         PlayersController pc = PlayersController.GetInstance();
         
         Player p = pc.createPlayer(pName);
