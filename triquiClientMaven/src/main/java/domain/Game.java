@@ -13,7 +13,18 @@ package domain;
  */
 public class Game {
     public enum Tile {
-        X, O, NONE
+        X, O, NONE;
+        
+        
+        @Override
+        public String toString() {
+          switch(this) {
+            case X: return "X";
+            case O: return "O";
+            case NONE: return "-";
+            default: throw new IllegalArgumentException();
+          }
+        }
     }
     
     private int id;
@@ -36,6 +47,15 @@ public class Game {
 
     public int getId() {
         return id;
+    }
+
+
+    public int getPlayerInTurn() {
+        return playerInTurn;
+    }
+
+    public Tile[][] getBoard() {
+        return board;
     }
 
     public Player getPlayer1() {

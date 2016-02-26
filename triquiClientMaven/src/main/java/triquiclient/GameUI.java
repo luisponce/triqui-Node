@@ -6,6 +6,7 @@
 package triquiclient;
 
 import domain.Game;
+import domain.Game.Tile;
 import domain.Player;
 
 /**
@@ -23,6 +24,12 @@ public class GameUI extends javax.swing.JFrame {
         this.game = g;
         
         initComponents();
+        
+        lblPlayer1.setText(g.getPlayer1().getName());
+        lblPlayer2.setText(g.getPlayer2().getName());
+        
+        populateBoard();
+        updatePlayerTurn();
     }
 
     /**
@@ -191,10 +198,44 @@ public class GameUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Game g = new Game();
+                Player p1 = new Player(1, "defaultPlayer1",
+                        "waiting", null);
+                Player p2 = new Player(1, "defaultPlayer2",
+                        "waiting", null);
+                
+                Tile[][] board = {
+                    {Tile.NONE,Tile.NONE,Tile.NONE},
+                    {Tile.NONE,Tile.NONE,Tile.NONE},
+                    {Tile.NONE,Tile.NONE,Tile.NONE}};
+                
+                Game g = new Game(1, 1, board, p1, p2);
                 new GameUI(g).setVisible(true);
             }
         });
+    }
+    
+    private void populateBoard(){
+        jButton1.setText(game.getBoard()[0][0].toString());
+        jButton2.setText(game.getBoard()[0][1].toString());
+        jButton3.setText(game.getBoard()[0][2].toString());
+        
+        jButton4.setText(game.getBoard()[1][0].toString());
+        jButton5.setText(game.getBoard()[1][1].toString());
+        jButton6.setText(game.getBoard()[1][2].toString());
+        
+        jButton7.setText(game.getBoard()[2][0].toString());
+        jButton8.setText(game.getBoard()[2][1].toString());
+        jButton9.setText(game.getBoard()[2][2].toString());
+    }
+    
+    private void updatePlayerTurn(){
+        Player inTurn;
+        if(game.getPlayerInTurn() == 1){
+            inTurn = game.getPlayer1();
+        } else {
+            inTurn = game.getPlayer2();
+        }
+        lblTurno.setText(inTurn.getName());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -16,11 +16,26 @@ import org.json.JSONString;
 import org.json.JSONStringer;
 import org.json.JSONTokener;
 import org.json.JSONWriter;
+import sun.security.jca.GetInstance;
 /**
  *
  * @author jonathaneidelman
  */
 public class PlayersController {
+    
+    private static PlayersController instance;
+    
+    private PlayersController(){
+        
+    }
+    
+    public static PlayersController GetInstance(){
+        if(instance == null){
+            instance = new PlayersController();
+        }
+        
+        return instance;
+    }
     
     public Player createPlayer(String name){
         Player p1 = new Player();
@@ -46,7 +61,7 @@ public class PlayersController {
         return p1;
     }
     
-    public ArrayList listAllConnectedPlayers(){
+    public ArrayList<Player> listAllConnectedPlayers(){
        //Player[] players = new Player[100];
         ArrayList<Player> players = new ArrayList();
        Connection c = new Connection();
