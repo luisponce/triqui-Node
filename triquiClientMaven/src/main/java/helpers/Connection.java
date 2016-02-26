@@ -105,4 +105,43 @@ public class Connection {
 	 }
        return res;
     }
+    
+    public String makeDELETERequest(String path, String serverURL){
+        String res = "";
+        try {
+
+            URL url = new URL("http://" + serverURL + path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("DELETE");
+            //conn.setRequestProperty("Accept", "application/json");
+
+            if (conn.getResponseCode() != 200) {
+		throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+		(conn.getInputStream())));
+
+            String output;
+            System.out.println("Output from Server .... \n");
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+                res += output;
+            }
+            System.out.println(output);
+
+            conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		System.out.println(e.getMessage());
+
+	  } catch (IOException e) {
+
+		System.out.println(e.getMessage());
+
+	  }
+        return res;
+    }
 }
