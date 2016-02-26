@@ -59,8 +59,12 @@ public class Game {
     }
 
 
-    public int getPlayerInTurn() {
-        return playerInTurn;
+    public Player getPlayerInTurn() {
+        if(playerInTurn == 1){
+            return player1;
+        } else {
+            return player2;
+        }
     }
 
     public Tile[][] getBoard() {
@@ -76,5 +80,105 @@ public class Game {
     }
     
     
+    public void makePlay(int pos){
+        if(playerInTurn == 1){
+            setBoardTile(pos, Tile.X);
+            playerInTurn = 2;
+        } else {
+            setBoardTile(pos, Tile.O);
+            playerInTurn = 1;
+        }
+    }
     
+    /*pos:
+    /   1 2 3
+    /   4 5 6
+    /   7 8 9
+    */
+    public Tile getTile(int pos){
+        int i = (pos-1) / 3;
+        int j = (pos-1) % 3;
+        
+        return board[i][j];
+    }
+    
+    private void setBoardTile(int pos, Tile value){
+        int i = (pos-1) / 3;
+        int j = (pos-1) % 3;
+        
+        board[i][j] = value;
+    }
+    
+    public Player getWinner(){
+        
+        for(int i = 0; i<3; i++){
+            Tile cur = board[i][0];
+            
+            boolean exit = false;
+            for(int j = 1; j<3 && !exit; j++){
+                if(board[i][j] != cur){
+                    exit = true;
+                }
+            }
+            
+            if(!exit){//all 3 of same
+                if(cur == Tile.X){
+                    return player1;
+                } else if(cur == Tile.O) {
+                    return player2;
+                }
+            }
+        }
+        
+        for(int i = 0; i<3; i++){
+            Tile cur = board[0][i];
+            
+            boolean exit = false;
+            for(int j = 1; j<3 && !exit; j++){
+                if(board[j][i] != cur){
+                    exit = true;
+                }
+            }
+            
+            if(!exit){//all 3 of same
+                if(cur == Tile.X){
+                    return player1;
+                } else if(cur == Tile.O) {
+                    return player2;
+                }
+            }
+        }
+        
+        Tile cur = board[0][0];
+        boolean exit = false;
+        for(int j = 1; j<3 && !exit; j++){
+            if(board[j][j] != cur){
+                exit = true;
+            }
+        }
+        if(!exit){//all 3 of same
+            if(cur == Tile.X){
+                return player1;
+            } else if(cur == Tile.O) {
+                return player2;
+            }
+        }
+        
+        cur = board[2][0];
+        exit = false;
+        for(int j = 1; j<3 && !exit; j++){
+            if(board[2-j][j] != cur){
+                exit = true;
+            }
+        }
+        if(!exit){//all 3 of same
+            if(cur == Tile.X){
+                return player1;
+            } else if(cur == Tile.O) {
+                return player2;
+            }
+        }
+        
+        return null;
+    }
 }
