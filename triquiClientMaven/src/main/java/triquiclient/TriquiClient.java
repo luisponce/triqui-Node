@@ -17,21 +17,11 @@ public class TriquiClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        PlayersController pc = PlayersController.GetInstance();
-        
-        Player p1 = pc.createPlayer("JP");
-        
-        pc.listAllConnectedPlayers();
-        
-        pc.getPlayersNotifications(p1);
-        
-        GameController g = GameController.getInstance();
-        
-        Player p2 = new Player(1, "Hola", "waiting", null);
-        Player p3 = new Player(3, "Hola3", "waiting", null);
-        g.listAllActiveGames();
-        g.createGame(p1, p2);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LogInUI().setVisible(true);
+            }
+        });
         
     }
     

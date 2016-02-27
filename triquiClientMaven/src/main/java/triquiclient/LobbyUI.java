@@ -116,18 +116,26 @@ public class LobbyUI extends javax.swing.JFrame {
         Player selectedPlayer;
         selectedPlayer = onlinePlayers.get(listPlayers.getSelectedIndex());
         
-        Notification n = new Notification(-1, player, selectedPlayer,
-                Notification.Type.GAMEINVITE, false);
-        n = PlayersController.GetInstance().sendNotificationToPlayer(n);
-        
-        n = waitForInvitationResponse(n);
-        
-        if(n == null){//declined
-            JOptionPane.showMessageDialog(this, "Invitation declined",
-                    "Invitation Response", JOptionPane.INFORMATION_MESSAGE);
-        } else { //accepted
-            Game g = GameController.getInstance().fetchGame(n.getGame());
-            new GameUI(g, player).setVisible(true);
+        if(player.getId() != selectedPlayer.getId()){
+            Notification n = new Notification(-1, player, selectedPlayer,
+                    Notification.Type.GAMEINVITE, false);
+            n = PlayersController.GetInstance().sendNotificationToPlayer(n);
+
+            n = waitForInvitationResponse(n);
+
+            if(n == null){//declined
+                JOptionPane.showMessageDialog(this, "Invitation declined",
+                        "Invitation Response", JOptionPane.INFORMATION_MESSAGE);
+            } else { //accepted
+                Game g = GameController.getInstance().fetchGame(n.getGame());
+                new GameUI(g, player).setVisible(true);
+            }
+        } else {
+            try {
+                throw new Exception("Error: notification with same sender and to");
+            } catch (Exception ex) {
+                Logger.getLogger(LobbyUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnChallengeActionPerformed
 
@@ -147,44 +155,7 @@ public class LobbyUI extends javax.swing.JFrame {
         return n;
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LobbyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Player p = new Player(1, "defaultPlayer",
-                        "waiting", null);
-                
-                new LobbyUI(p).setVisible(true);
-            }
-        });
-    }
+    
     
     public ListModel generateListModel(){
         DefaultListModel pNames = new DefaultListModel();
@@ -195,9 +166,11 @@ public class LobbyUI extends javax.swing.JFrame {
         onlinePlayers = pc.listAllConnectedPlayers();
         
         for (Player curPlayer : onlinePlayers) {
-            if(curPlayer.getId() != player.getId())
-            pNames.addElement(curPlayer.getName());
+            if(curPlayer.getId() != player.getId()){
+                pNames.addElement(curPlayer.getName());
+            }
         }
+        onlinePlayers.remove(player);
         return pNames;
     }
 
