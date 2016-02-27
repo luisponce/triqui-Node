@@ -242,9 +242,28 @@ public class LobbyUI extends javax.swing.JFrame {
         @Override
         public void run(){
             while(true){
-                listPlayers.setModel(generateListModel());
+                Player selectedPlayer = new Player();
+                String name = "";
+                int i = 0;
                 try {
-                    Thread.sleep(100);
+                    selectedPlayer = onlinePlayers.get(listPlayers.getSelectedIndex());
+                    i = listPlayers.getSelectedIndex();
+                    name = selectedPlayer.getName();
+                } catch (Exception e){
+                    System.out.println("Nadie Seleccionado.");
+                }
+                listPlayers.setModel(generateListModel());
+                //listPlayers.setSelectedIndex(i);
+                Player p = new Player();
+                for(int j = 0; j < onlinePlayers.size(); j++){
+                    p = onlinePlayers.get(j);
+                    if (p.getName().equals(name)){
+                        listPlayers.setSelectedIndex(j);
+                        break;
+                    }
+                }
+                try {
+                    Thread.sleep(500);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(LobbyUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
