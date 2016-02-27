@@ -40,6 +40,7 @@ public class LobbyUI extends javax.swing.JFrame {
         
         lblPlayerName.setText(p.getName());
         new Thread(new CheckNotifications()).start();
+        new Thread(new RefreshPlayersList()).start();
     }
 
     /**
@@ -233,6 +234,20 @@ public class LobbyUI extends javax.swing.JFrame {
             } else {//no
                 NotificationController.GetInstance().
                         deleteNotification(n.getId());
+            }
+        }
+    }
+    
+    private class RefreshPlayersList implements Runnable{
+        @Override
+        public void run(){
+            while(true){
+                listPlayers.setModel(generateListModel());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(LobbyUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
