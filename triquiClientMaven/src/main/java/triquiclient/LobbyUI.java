@@ -11,6 +11,7 @@ import controllers.PlayersController;
 import domain.Game;
 import domain.Notification;
 import domain.Player;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +40,7 @@ public class LobbyUI extends javax.swing.JFrame {
         
         
         lblPlayerName.setText(p.getName());
-        new Thread(new CheckNotifications()).start();
+        new Thread(new CheckNotifications(this)).start();
         Runtime.getRuntime().addShutdownHook(new Thread()
         {
             @Override
@@ -163,20 +164,30 @@ public class LobbyUI extends javax.swing.JFrame {
         //TODO: get the online players from the server (minus the logged player)
         PlayersController pc = PlayersController.GetInstance();
         
+        int playerLoggedIndex = -1;
         onlinePlayers = pc.listAllConnectedPlayers();
-        
-        for (Player curPlayer : onlinePlayers) {
-            if(curPlayer.getId() != player.getId()){
-                pNames.addElement(curPlayer.getName());
+        for(int i = 0; i<onlinePlayers.size(); i++) {
+            if(onlinePlayers.get(i).getId() != player.getId()){
+                pNames.addElement(onlinePlayers.get(i).getName());
+            } else {
+                playerLoggedIndex = i;
             }
         }
-        onlinePlayers.remove(player);
+        onlinePlayers.remove(playerLoggedIndex);
         return pNames;
     }
 
     //threads
     private class CheckNotifications implements Runnable {
 
+        Component parent;
+        
+        public CheckNotifications(Component parent) {
+            this.parent = parent;
+        }
+
+        
+        
         @Override
         public void run() {
             while(true){
@@ -197,7 +208,7 @@ public class LobbyUI extends javax.swing.JFrame {
         }
         
         private void showInvitation(Notification n){
-            int selected = JOptionPane.showConfirmDialog(null,
+            int selected = JOptionPane.showConfirmDialog(parent,
                 "Accept invitation to play from "+n.getSender().getName()+"?",
                 "Game Invitation from " + n.getSender().getName(), 
                 JOptionPane.YES_NO_OPTION,

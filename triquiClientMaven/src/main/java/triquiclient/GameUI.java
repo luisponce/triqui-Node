@@ -70,6 +70,7 @@ public class GameUI extends javax.swing.JFrame {
         lblGanador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
 
         jLabel1.setText("Partida de triqui");
 
