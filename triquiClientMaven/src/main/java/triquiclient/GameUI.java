@@ -11,6 +11,7 @@ import domain.Game.Tile;
 import domain.Player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -340,6 +341,7 @@ public class GameUI extends javax.swing.JFrame {
             if(game.getTile(btn) == Tile.NONE){
                 if(loggedPlayer.getId() != game.getPlayerInTurn().getId()){
                     //TODO: display error - not your turn!
+                    JOptionPane.showMessageDialog(this, "Not your turn!");
                     System.out.println("not your turn");
                 } else {
                     //make play
@@ -352,7 +354,14 @@ public class GameUI extends javax.swing.JFrame {
             }
         } else {
             //TODO: dialog with winner
-            System.out.println("winner: " + game.getWinner().getName());
+            if(!game.getWinner().getName().equals("Empate")){
+                JOptionPane.showMessageDialog(this, "Winner: " + game.getWinner().getName());
+                System.out.println("winner: " + game.getWinner().getName());
+            }else{
+                JOptionPane.showMessageDialog(this, "TIE!");
+                System.out.println("TIE");
+            }
+            
         }
     }
     

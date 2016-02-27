@@ -181,6 +181,39 @@ public class Game {
             }
         }
         
+        Tile[] row1 = new Tile[3];
+        boolean fullRow1 = true;
+         for(int i = 0; i < 3; i++){
+             row1[i] = board[0][i];
+             if(row1[i] == Tile.NONE){
+                 fullRow1 = false;
+             }
+         }
+         
+        Tile[] row2 = new Tile[3];
+        boolean fullRow2 = true;
+         for(int i = 0; i < 3; i++){
+             row2[i] = board[1][i];
+             if(row2[i] == Tile.NONE){
+                 fullRow2 = false;
+             }
+         }
+         
+        Tile[] row3 = new Tile[3];
+        boolean fullRow3 = true;
+         for(int i = 0; i < 3; i++){
+             row3[i] = board[2][i];
+             if(row3[i] == Tile.NONE){
+                 fullRow3 = false;
+             }
+         } 
+         
+         if(fullRow1 && fullRow2 && fullRow3){
+             //si las tres estan llenas y no ha retornado ganador hay empate
+             Player tie = new Player(-1, "Empate", null);
+             return tie;
+         }
+        
         return null;
     }
 }
