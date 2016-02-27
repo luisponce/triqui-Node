@@ -20,7 +20,7 @@ public class TriquiClient {
         // TODO code application logic here
         PlayersController pc = PlayersController.GetInstance();
         
-        Player p1 = pc.createPlayer("Jonathan");
+        Player p1 = pc.createPlayer("JP");
         
         pc.listAllConnectedPlayers();
         

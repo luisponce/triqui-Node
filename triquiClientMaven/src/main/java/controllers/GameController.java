@@ -65,9 +65,11 @@ public class GameController {
         Game game = new Game();
         
         Connection c = new Connection();
-        String body = "{ \"player1:" + p1.getId() + ", player2:" + p2.getId() 
-                + " }";
-        String response = c.makePOSTRequest("/game", body, Connection.serverURL);
+        JSONObject bodyJson = new JSONObject();
+        bodyJson.put("player1", ""+p1.getId());
+        bodyJson.put("player2", ""+p2.getId());
+        
+        String response = c.makePOSTRequest("/game", bodyJson.toString(), Connection.serverURL);
         
         JSONObject js = new JSONObject(response);
         int id = js.getInt("id");
@@ -105,6 +107,29 @@ public class GameController {
         return jsonToGame(resp);
     }
     
+    public JSONObject deleteGame(int id){
+        Connection c = new Connection();
+        
+        JSONObject resp = 
+                new JSONObject(c.makeDELETERequest("/game/"+id, Connection.serverURL));
+        
+        return resp;
+    }
+    
+    public Game updateGame(int id, Tile[][] board, int playerTurn){
+        Connection c = new Connection();
+        JSONObject body = new JSONObject();
+        
+        body.put("id", id);
+        body.put("board", boardToJson(board));
+        body.put("playerTurn", playerTurn);
+        
+        JSONObject resp = 
+                new JSONObject(c.makePOSTRequest("/game/"+id, body.toString() ,Connection.serverURL));
+        
+        return jsonToGame(resp);
+    }
+    
     public Game jsonToGame(JSONObject json){
         int id = json.getInt("id");
         int playerInTurn = json.getInt("playerTurn");
@@ -138,5 +163,21 @@ public class GameController {
         //TODO: populate board from json
         
         return board;
+    }
+    
+    public JSONArray boardToJson (Tile[][] board){
+        
+        JSONArray boardJSON = new JSONArray();
+        for(int i = 0; i < 3; ++i) {
+            JSONArray row = new JSONArray();
+            for(int j = 0; j < 3; ++j) {
+                row.put(board[i][j].toString());
+            }
+            boardJSON.put(row);
+        }
+                
+        System.out.println(boardJSON.toString());
+        
+        return boardJSON;
     }
 }
