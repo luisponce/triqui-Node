@@ -9,11 +9,11 @@ module.exports = {
 
 	attributes: {
 		player1: {
-			collection: 'Player',
+			model: 'Player',
 			required: true
 		},
 		player2: {
-			collection: 'Player',
+			model: 'Player',
 			required: true
 		}, 
 		board: {
