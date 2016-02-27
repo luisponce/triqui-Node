@@ -40,8 +40,19 @@ public class LobbyUI extends javax.swing.JFrame {
         
         lblPlayerName.setText(p.getName());
         new Thread(new CheckNotifications()).start();
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            @Override
+            public void run()
+            {
+                //delete this player
+                PlayersController.GetInstance().deletePlayer(player);
+            }
+        });
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

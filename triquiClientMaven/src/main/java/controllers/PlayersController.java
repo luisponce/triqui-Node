@@ -45,6 +45,12 @@ public class PlayersController {
         }
     }
     
+    public void deletePlayer(Player p){
+        Connection c = new Connection();
+        
+        c.makeDELETERequest("/player/"+p.getId(), Connection.serverURL);
+    }
+    
     public void updatePlayer(Player p){
         ObjectMapper mapper = new ObjectMapper();
         Connection c = new Connection();
