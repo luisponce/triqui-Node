@@ -30,9 +30,9 @@ public class Game {
     public static Tile fromStringToEnum(String move){
         switch(move){
             case "-": return Tile.NONE;
-            case "x": return Tile.X;
+            case "X": return Tile.X;
             case "O": return Tile.O;
-            default: return Tile.NONE;
+            default: throw new IllegalArgumentException();
         }
     }
     
@@ -58,7 +58,9 @@ public class Game {
         return id;
     }
 
-
+    public int getPlayerInTurnInt() {
+        return playerInTurn;
+    }
     public Player getPlayerInTurn() {
         if(playerInTurn == 1){
             return player1;

@@ -126,16 +126,17 @@ public class GameController {
         return resp;
     }
     
-    public Game updateGame(int id, Tile[][] board, int playerTurn){
+    public Game updateGame(Game g){
         Connection c = new Connection();
         JSONObject body = new JSONObject();
         
-        body.put("id", id);
-        body.put("board", boardToJson(board));
-        body.put("playerTurn", playerTurn);
+        body.put("id", g.getId());
+        body.put("board", boardToJson(g.getBoard()));
+        body.put("playerTurn", g.getPlayerInTurnInt());
         
         JSONObject resp = 
-                new JSONObject(c.makePOSTRequest("/game/"+id, body.toString() ,Connection.serverURL));
+                new JSONObject(c.makePOSTRequest("/game/"+g.getId(),
+                        body.toString() ,Connection.serverURL));
         
         return jsonToGame(resp);
     }
@@ -167,7 +168,7 @@ public class GameController {
             for(int j = 0; j < 3; ++j) {
                 Game.Tile t = Game.fromStringToEnum(rows.get(i).getString(j));
                 board[i][j] = t;
-                System.out.println(board[i][j].toString());
+                //System.out.println(board[i][j].toString());
             }    
         }
         //TODO: populate board from json

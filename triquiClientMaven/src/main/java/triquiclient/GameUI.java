@@ -5,9 +5,12 @@
  */
 package triquiclient;
 
+import controllers.GameController;
 import domain.Game;
 import domain.Game.Tile;
 import domain.Player;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,8 +33,11 @@ public class GameUI extends javax.swing.JFrame {
         lblPlayer1.setText(g.getPlayer1().getName());
         lblPlayer2.setText(g.getPlayer2().getName());
         
+        this.setTitle(loggedPlayer.getName() +"'s game");
+        
         populateBoard();
         updatePlayerTurn();
+        new Thread(new UpdateGame()).start();
     }
 
     /**
@@ -287,9 +293,14 @@ public class GameUI extends javax.swing.JFrame {
     }
     
     public void updateAll(){
+        updateFromServer();
         populateBoard();
         updatePlayerTurn();
         updateWinner();
+    }
+    
+    private void updateFromServer(){
+        game = GameController.getInstance().fetchGame(game.getId());
     }
     
     private void populateBoard(){
@@ -327,23 +338,41 @@ public class GameUI extends javax.swing.JFrame {
     private void btnPressed(int btn){
         if(game.getWinner() == null){
             if(game.getTile(btn) == Tile.NONE){
-                if(loggedPlayer != game.getPlayerInTurn()){
+                if(loggedPlayer.getId() != game.getPlayerInTurn().getId()){
                     //TODO: display error - not your turn!
+                    System.out.println("not your turn");
+                } else {
+                    //make play
+                    game.makePlay(btn);
+
+                    GameController.getInstance().updateGame(game);
+
+                    updateAll();
                 }
-
-
-                //make play
-                game.makePlay(btn);
-
-                updateAll();
             }
         } else {
+            //TODO: dialog with winner
             System.out.println("winner: " + game.getWinner().getName());
         }
     }
     
-    
+     private class UpdateGame implements Runnable {
 
+        @Override
+        public void run() {
+            while(true){
+                updateAll();
+                
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+     }
+     
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
