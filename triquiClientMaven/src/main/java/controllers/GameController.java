@@ -93,7 +93,7 @@ public class GameController {
                 boardTable[i][j] = t;
             }    
         }
-            //game = new Game(id, playerInTurn, board, p1, p2);
+        game = new Game(id, playerInTurn, boardTable, p1, p2);
         return game;
     }
     

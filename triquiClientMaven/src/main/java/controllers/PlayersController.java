@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package controllers;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Notification;
 import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 /**
@@ -37,6 +41,21 @@ public class PlayersController {
         return jsonToPlayer(new JSONObject(res));
     }
     
+    public void updatePlayer(Player p){
+        ObjectMapper mapper = new ObjectMapper();
+        Connection c = new Connection();
+        try {
+            String body = mapper.writeValueAsString(p);
+            System.out.println("json: " + body);
+            c.makePOSTRequest("/player/"+p.getId(), body, Connection.serverURL);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(PlayersController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     public Player createPlayer(String name){
         Player p1 = new Player();
         Connection c = new Connection();
@@ -50,7 +69,6 @@ public class PlayersController {
     }
     
     public ArrayList<Player> listAllConnectedPlayers(){
-       //Player[] players = new Player[100];
        ArrayList<Player> players = new ArrayList();
        Connection c = new Connection();
        String response = c.makeGETRequest("/player", Connection.serverURL);

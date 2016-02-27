@@ -5,11 +5,17 @@
  */
 package triquiclient;
 
+import controllers.GameController;
+import controllers.NotificationController;
 import controllers.PlayersController;
+import domain.Game;
 import domain.Notification;
 import domain.Player;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 /**
@@ -33,6 +39,7 @@ public class LobbyUI extends javax.swing.JFrame {
         
         
         lblPlayerName.setText(p.getName());
+        new Thread(new CheckNotifications()).start();
     }
 
     /**
@@ -152,11 +159,6 @@ public class LobbyUI extends javax.swing.JFrame {
         
         onlinePlayers = pc.listAllConnectedPlayers();
         
-        //for(int i = 0; i<onlinePlayers.size(); i++){
-        //    Player nPlayer = new Player(i+1, "test player "+(i+1), "waiting", null);
-        //    onlinePlayers[i] = nPlayer;
-        //}
-        
         for (Player curPlayer : onlinePlayers) {
             if(curPlayer.getId() != player.getId())
             pNames.addElement(curPlayer.getName());
@@ -164,6 +166,54 @@ public class LobbyUI extends javax.swing.JFrame {
         return pNames;
     }
 
+    //threads
+    private class CheckNotifications implements Runnable {
+
+        @Override
+        public void run() {
+            while(true){
+                if(player.getStatus().equals("waiting")){
+                    ArrayList<Notification> queue = PlayersController.GetInstance().
+                            getPlayersNotifications(player);
+
+                    if(!queue.isEmpty()){
+                        showInvitation(queue.get(0));
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(LobbyUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        private void showInvitation(Notification n){
+            int selected = JOptionPane.showConfirmDialog(null,
+                "Accept invitation to play from "+n.getSender().getName()+"?",
+                "Game Invitation from " + n.getSender().getName(), 
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE); 
+            
+            if(selected == 0){//yes
+                //TODO: accept and create game
+                player.setStatus("playing");
+                PlayersController.GetInstance().updatePlayer(player);
+                
+                Game g = GameController.getInstance().
+                        createGame(n.getTo(), n.getSender());
+                
+                NotificationController.GetInstance().
+                        acceptNotification(n.getId());
+                
+                new GameUI(g, player).setVisible(true);
+            } else {//no
+                NotificationController.GetInstance().
+                        deleteNotification(n.getId());
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChallenge;
     private javax.swing.JPanel jPanel1;

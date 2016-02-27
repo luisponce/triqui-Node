@@ -5,6 +5,7 @@
  */
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 /**
@@ -16,22 +17,23 @@ public class Player {
     private final String name;
     private String status;
     
-    private ArrayList<Notification> notifications;
+    
+    private ArrayList<Notification> notification;
 
     public Player(int id, String name, String status,
-            ArrayList<Notification> notifications) {
+            ArrayList<Notification> notification) {
         
         this.id = id;
         this.name = name;
         this.status = status;
-        this.notifications = notifications;
+        this.notification = notification;
     }
 
     public Player(int id, String name, String status) {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.notifications = new ArrayList<>();
+        this.notification = new ArrayList<>();
     }
 
     public Player() {
@@ -57,11 +59,12 @@ public class Player {
         return id;
     }
     
+    @JsonIgnore
     public ArrayList<Notification> getNotifications(){
-        return notifications;
+        return notification;
     }
     
     public void addNotification(Notification notification){
-        notifications.add(notification);
+        this.notification.add(notification);
     }
 }

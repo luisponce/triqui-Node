@@ -9,6 +9,7 @@ package controllers;
 import domain.Notification;
 import domain.Player;
 import helpers.Connection;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -32,10 +33,19 @@ public class NotificationController {
     
     public Notification jsonToNotification(JSONObject json){
         int id = json.getInt("id");
-        Player sender = PlayersController.GetInstance().
-                fetchPlayer(json.getInt("sender"));
-        Player to = PlayersController.GetInstance().
-                fetchPlayer(json.getInt("to"));
+        Player sender = null;
+        Player to = null;
+        try {
+            sender = PlayersController.GetInstance().
+                    fetchPlayer(json.getInt("sender"));
+            to = PlayersController.GetInstance().
+                    fetchPlayer(json.getInt("to"));
+        } catch (JSONException jSONException) {
+            sender = PlayersController.GetInstance().
+                    jsonToPlayer(json.getJSONObject("sender"));
+            to = PlayersController.GetInstance().
+                    jsonToPlayer(json.getJSONObject("to"));
+        }
         //TODO get the actual type in case we add more notifications
         Notification.Type type = Notification.Type.GAMEINVITE;
         boolean accepted = json.getBoolean("accepted");
