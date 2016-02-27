@@ -79,11 +79,26 @@ public class GameController {
         JSONObject js = new JSONObject(response);
         int id = js.getInt("id");
         int playerInTurn = js.getInt("playerTurn");
+        //System.out.println(js.getJSONArray("board").toString());
         //TODO: get board and send it in a tile[][] to return the created game that the response sent.
-        JSONArray board = new JSONArray(js.getJSONArray("board"));
-        JSONArray row1 = new JSONArray(board.get(0));
-        //Tile[][] board;
-        //game = new Game(id, playerInTurn, board, p1, p2);
+        
+        JSONArray board = js.getJSONArray("board");
+        ArrayList<JSONArray> rows = new ArrayList<JSONArray>();
+            
+        for(int i = 0; i < 3; ++i) {
+            JSONArray row = board.getJSONArray(i);
+            rows.add(row);
+        }
+            
+        Tile[][] boardTable = new Tile[3][3];
+            
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
+                Game.Tile t = Game.fromStringToEnum(rows.get(i).getString(j));
+                boardTable[i][j] = t;
+            }    
+        }
+            //game = new Game(id, playerInTurn, board, p1, p2);
         return game;
     }
     

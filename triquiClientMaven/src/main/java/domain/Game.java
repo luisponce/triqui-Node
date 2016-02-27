@@ -27,7 +27,7 @@ public class Game {
         }
     }
     
-    public Tile fromStringToEnum(String move){
+    public static Tile fromStringToEnum(String move){
         switch(move){
             case "-": return Tile.NONE;
             case "x": return Tile.X;
