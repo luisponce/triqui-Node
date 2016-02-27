@@ -69,7 +69,7 @@ public class GameUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lblGanador = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Partida de triqui");
 
@@ -247,51 +247,7 @@ public class GameUI extends javax.swing.JFrame {
         btnPressed(9);
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Player p1 = new Player(1, "defaultPlayer1",
-                        "waiting", null);
-                Player p2 = new Player(1, "defaultPlayer2",
-                        "waiting", null);
-                
-                Tile[][] board = {
-                    {Tile.NONE,Tile.NONE,Tile.NONE},
-                    {Tile.NONE,Tile.NONE,Tile.NONE},
-                    {Tile.NONE,Tile.NONE,Tile.NONE}};
-                
-                Game g = new Game(1, 1, board, p1, p2);
-                new GameUI(g, p1).setVisible(true);
-            }
-        });
-    }
+    
     
     public void updateAll(){
         updateFromServer();
@@ -329,6 +285,25 @@ public class GameUI extends javax.swing.JFrame {
             name = "";
         } else {
             name = p.getName();
+            boolean tie = false;
+            if(name.equals("Empate")){
+                JOptionPane.showMessageDialog(this, "Game Tied!!!");
+                this.dispose();
+                tie = true;
+            }
+            if (p.getId() == loggedPlayer.getId()){
+                //win
+                if(!tie){
+                    JOptionPane.showMessageDialog(this, "You Won!");
+                    this.dispose();
+                }
+            } else{
+                //Loose
+                if(!tie){
+                    JOptionPane.showMessageDialog(this, "You loose :( ");
+                    this.dispose();
+                }
+            }
         }
         lblGanador.setText(name);
     }
@@ -369,7 +344,7 @@ public class GameUI extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            while(true){
+            while(game.getWinner() == null){
                 updateAll();
                 
                 try {
