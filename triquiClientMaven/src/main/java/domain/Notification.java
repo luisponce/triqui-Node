@@ -21,6 +21,15 @@ public class Notification {
     private final Player to;
     private final Type type;
     private boolean accepted;
+    private int game;
+
+    public int getGame() {
+        return game;
+    }
+
+    public void setGame(int game) {
+        this.game = game;
+    }
 
     public Notification(int id, Player sender, Player to, Type type,
             boolean accepted) {

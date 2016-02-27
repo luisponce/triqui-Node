@@ -19,8 +19,10 @@ import java.net.URL;
  */
 public class Connection {
     
+    
+    
     public static String serverURL = "10.131.137.212";
-    public String makeGETRequest(String path, String serverURL){
+    public String makeGETRequest(String path, String serverURL) throws HTTPError{ 
         String res = "";
         try {
 
@@ -29,21 +31,22 @@ public class Connection {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
+            
             if (conn.getResponseCode() != 200) {
-		throw new RuntimeException("Failed : HTTP error code : "
-                    + conn.getResponseCode());
+		throw new HTTPError("Failed : HTTP error code : "
+                    + conn.getResponseCode(), conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
 		(conn.getInputStream())));
 
             String output;
-            System.out.println("Output from Server .... \n");
+            //System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
+                //System.out.println(output);
                 res += output;
             }
-            System.out.println(output);
+            //System.out.println(output);
 
             conn.disconnect();
 
@@ -146,5 +149,13 @@ public class Connection {
 
 	  }
         return res;
+    }
+    
+    public class HTTPError extends Exception {
+        public int errorCode;
+        public HTTPError(String message, int errorCode) {
+            super(message);
+            this.errorCode = errorCode;
+        }
     }
 }

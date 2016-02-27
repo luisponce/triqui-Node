@@ -108,10 +108,33 @@ public class LobbyUI extends javax.swing.JFrame {
                 Notification.Type.GAMEINVITE, false);
         n = PlayersController.GetInstance().sendNotificationToPlayer(n);
         
-        //TODO: wait for invitation response
-        System.out.println("notification id: "+ n.getId());
+        n = waitForInvitationResponse(n);
+        
+        if(n == null){//declined
+            JOptionPane.showMessageDialog(this, "Invitation declined",
+                    "Invitation Response", JOptionPane.INFORMATION_MESSAGE);
+        } else { //accepted
+            Game g = GameController.getInstance().fetchGame(n.getGame());
+            new GameUI(g, player).setVisible(true);
+        }
     }//GEN-LAST:event_btnChallengeActionPerformed
 
+    private Notification waitForInvitationResponse(Notification n){
+        this.setEnabled(false);
+        System.out.println("waiting for invitation "+n.getId());
+        boolean waiting = true;
+        while (waiting) {
+            n = NotificationController.GetInstance().
+                    fetchNotification(n.getId());
+            
+            if(n==null || n.isAccepted()){
+                waiting = false;
+            }
+        }
+        this.setEnabled(true);
+        return n;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -204,7 +227,7 @@ public class LobbyUI extends javax.swing.JFrame {
                         createGame(n.getTo(), n.getSender());
                 
                 NotificationController.GetInstance().
-                        acceptNotification(n.getId());
+                        acceptNotification(n.getId(), g.getId());
                 
                 new GameUI(g, player).setVisible(true);
             } else {//no

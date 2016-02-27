@@ -10,6 +10,8 @@ import domain.Game.Tile;
 import domain.Player;
 import helpers.Connection;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,32 +35,36 @@ public class GameController {
     
     
     public ArrayList<Game> listAllActiveGames(){
-        ArrayList<Game> games = new ArrayList();
-        
-        Connection c = new Connection();
-        
-        String response = c.makeGETRequest("/game", Connection.serverURL);
-        
-        JSONArray js = new JSONArray(response);
-        
-        for(Object o: js){
-            JSONObject game = (JSONObject) o;
-            int gId = game.getInt("id");
-            int p1 = game.getInt("player1");
-            int p2 = game.getInt("player2");
-            Player player1 = new Player(p1, null, null, null);
-            Player player2 = new Player(p2, null, null, null);
-            Game g = new Game(gId, -1, null, player1, player2);
+        try {
+            ArrayList<Game> games = new ArrayList();
             
-            games.add(g);
+            Connection c = new Connection();
+            
+            String response = c.makeGETRequest("/game", Connection.serverURL);
+            
+            JSONArray js = new JSONArray(response);
+            
+            for(Object o: js){
+                JSONObject game = (JSONObject) o;
+                int gId = game.getInt("id");
+                int p1 = game.getInt("player1");
+                int p2 = game.getInt("player2");
+                Player player1 = new Player(p1, null, null, null);
+                Player player2 = new Player(p2, null, null, null);
+                Game g = new Game(gId, -1, null, player1, player2);
+                
+                games.add(g);
+            }
+            
+            for(Game game : games){
+                System.out.println("Game: " + game.getId() + " p1: "
+                        + game.getPlayer1().getId() + " p2: "
+                        + game.getPlayer2().getId());
+            }
+            return games;
+        } catch (Connection.HTTPError ex) {
+            return null;
         }
-        
-        for(Game game : games){
-            System.out.println("Game: " + game.getId() + " p1: "  
-                    + game.getPlayer1().getId() + " p2: " 
-                    + game.getPlayer2().getId());
-        }
-        return games;
     }
     
     public Game createGame(Player p1, Player p2){
@@ -98,13 +104,17 @@ public class GameController {
     }
     
     public Game fetchGame(int id){
-        Connection c = new Connection();
-        
-        JSONObject resp = 
-                new JSONObject(c.makeGETRequest("/game/"+id,
-                        Connection.serverURL));
-        
-        return jsonToGame(resp);
+        try {
+            Connection c = new Connection();
+            
+            JSONObject resp =
+                    new JSONObject(c.makeGETRequest("/game/"+id,
+                            Connection.serverURL));
+            
+            return jsonToGame(resp);
+        } catch (Connection.HTTPError ex) {
+            return null;
+        }
     }
     
     public JSONObject deleteGame(int id){
@@ -133,7 +143,7 @@ public class GameController {
     public Game jsonToGame(JSONObject json){
         int id = json.getInt("id");
         int playerInTurn = json.getInt("playerTurn");
-        Tile[][] board = jsonToBoard(json.getJSONObject("board"));
+        Tile[][] board = jsonToBoard(json.getJSONArray("board"));
         Player p1 = PlayersController.GetInstance().
                 jsonToPlayer(json.getJSONObject("player1"));
         Player p2 = PlayersController.GetInstance().
@@ -142,7 +152,7 @@ public class GameController {
         return new Game(id, playerInTurn, board, p1, p2);
     }
     
-    public Tile[][] jsonToBoard(JSONObject json){
+    public Tile[][] jsonToBoard(JSONArray json){
         Tile[][] board = new Tile[3][3];
         
         JSONArray boardJs = new JSONArray(json.toString());

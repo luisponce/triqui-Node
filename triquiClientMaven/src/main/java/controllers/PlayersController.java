@@ -35,10 +35,14 @@ public class PlayersController {
     }
     
     public Player fetchPlayer(int id){
-        Connection c = new Connection();
-        
-        String res = c.makeGETRequest("/player/"+id, Connection.serverURL);
-        return jsonToPlayer(new JSONObject(res));
+        try {
+            Connection c = new Connection();
+            
+            String res = c.makeGETRequest("/player/"+id, Connection.serverURL);
+            return jsonToPlayer(new JSONObject(res));
+        } catch (Connection.HTTPError ex) {
+            return null;
+        }
     }
     
     public void updatePlayer(Player p){
@@ -69,35 +73,43 @@ public class PlayersController {
     }
     
     public ArrayList<Player> listAllConnectedPlayers(){
-       ArrayList<Player> players = new ArrayList();
-       Connection c = new Connection();
-       String response = c.makeGETRequest("/player", Connection.serverURL);
-       
-       JSONArray playerArray  = new JSONArray(response);
-       
-       for (int i = 0; i<playerArray.length(); i++) {
-           Player p = jsonToPlayer(playerArray.getJSONObject(i));
-           players.add(p);
+        try {
+            ArrayList<Player> players = new ArrayList();
+            Connection c = new Connection();
+            String response = c.makeGETRequest("/player", Connection.serverURL);
+            
+            JSONArray playerArray  = new JSONArray(response);
+            
+            for (int i = 0; i<playerArray.length(); i++) {
+                Player p = jsonToPlayer(playerArray.getJSONObject(i));
+                players.add(p);
+            }
+            
+            return players;
+        } catch (Connection.HTTPError ex) {
+            return null;
         }
-       
-       return players;
     }
     
     public ArrayList<Notification> getPlayersNotifications(Player player){
-        ArrayList <Notification> notifications = new ArrayList();
-        Connection c = new Connection();
-        String response = 
-                c.makeGETRequest("/player/" + player.getId() + "/notification",
-                        Connection.serverURL);
-        JSONArray notificationArray = new JSONArray(response);
-       
-       for (int i = 0; i<notificationArray.length(); i++) {
-           Notification n = NotificationController.GetInstance().
-                   jsonToNotification(notificationArray.getJSONObject(i));
-           
-           notifications.add(n);
+        try {
+            ArrayList <Notification> notifications = new ArrayList();
+            Connection c = new Connection();
+            String response =
+                    c.makeGETRequest("/player/" + player.getId() + "/notification",
+                            Connection.serverURL);
+            JSONArray notificationArray = new JSONArray(response);
+            
+            for (int i = 0; i<notificationArray.length(); i++) {
+                Notification n = NotificationController.GetInstance().
+                        jsonToNotification(notificationArray.getJSONObject(i));
+                
+                notifications.add(n);
+            }
+            return notifications;
+        } catch (Connection.HTTPError ex) {
+            return null;
         }
-        return notifications;
     }
     
     public Notification sendNotificationToPlayer(Notification n){
