@@ -11,6 +11,7 @@ import domain.Game.Tile;
 import domain.Player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -328,6 +329,16 @@ public class GameUI extends javax.swing.JFrame {
             name = "";
         } else {
             name = p.getName();
+            
+            if (p.getId() == loggedPlayer.getId()){
+                //win
+                JOptionPane.showMessageDialog(this, "You Won!");
+                this.dispose();
+            } else {
+                //Loose
+                JOptionPane.showMessageDialog(this, "You loose :( ");
+                this.dispose();
+            }
         }
         lblGanador.setText(name);
     }
@@ -360,7 +371,7 @@ public class GameUI extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            while(true){
+            while(game.getWinner() == null){
                 updateAll();
                 
                 try {
