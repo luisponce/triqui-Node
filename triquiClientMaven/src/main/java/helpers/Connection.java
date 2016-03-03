@@ -21,7 +21,7 @@ public class Connection {
     
     
     
-    public static String serverURL = "10.131.137.212";
+    public static String serverURL = "10.131.137.212:8080";
     public String makeGETRequest(String path, String serverURL) throws HTTPError{ 
         String res = "";
         try {
